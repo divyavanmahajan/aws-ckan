@@ -55,9 +55,10 @@ More instructions on getting started with CKAN at the CKAN docs site at http://d
 
 ## 5. Customizing look and feel
 
-To remove the promoted text on the home page, edit the file `/usr/lib/ckan/default/src/ckan/ckan/templates/home/snippets/promoted.html`.
 
 Some simple customizations to customize the ‘look and feel’ of your CKAN site are available via the UI, at `http://<my-ckan-url>/ckan-admin/config/`.
+To remove the instructions, enter something in the "Intro Text" in the CKAN customization
+(The template is stored in `/usr/lib/ckan/default/src/ckan/ckan/templates/home/snippets/promoted.html`.
 
 ![CKAN Config Panel](https://www.evernote.com/shard/s21/sh/b4245a4f-a769-433e-8235-d05ee0156c0d/e731f862589c40101fd6d72f46704f2f/deep/0/Administration---CKAN.png)
 
