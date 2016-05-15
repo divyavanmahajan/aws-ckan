@@ -2,6 +2,8 @@
 
 set -ex
 
+EXTERNAL_DNS=`curl --connect-timeout 5 http://169.254.169.254/latest/meta-data/public-hostname || echo 192.168.33.10`
+SITE_TITLE='Reporting Hub'
 CKAN_PKG='python-ckan_2.0_amd64.deb'
 
 apt-get update -y
@@ -22,10 +24,10 @@ dpkg-reconfigure -f noninteractive locales
 # Installing CKAN from Source
 # http://docs.ckan.org/en/ckan-2.2/install-from-source.html
 
-# Turn off Apache
-(systemctl kill apache2.service || exit 0;)
 # Install the required packages
-apt-get install -y nginx apache2 libapache2-mod-wsgi python-dev postgresql libpq-dev python-pip python-virtualenv git-core solr-jetty openjdk-8-jdk python-pastescript pwgen
+apt-get install -y apache2 libapache2-mod-wsgi python-dev postgresql libpq-dev python-pip python-virtualenv git-core solr-jetty openjdk-8-jdk python-pastescript pwgen
+service apache2 stop
+apt-get install -y nginx
 
 PASSWD=`pwgen 12 1`
 
@@ -60,7 +62,7 @@ chown -R www-data /etc/ckan/
 
 cd /usr/lib/ckan/default/src/ckan
 paster make-config ckan /etc/ckan/default/development.ini
-sed -e "s/ckan_default:pass/ckan_default:$PASSWD/" -e 's/ckan.site_url =/ckan.site_url=http:\/\/ec2-52-91-122-145.compute-1.amazonaws.com/' /etc/ckan/default/development.ini > /etc/ckan/default/production.ini
+sed -e "s/ckan.site_title = /ckan.site_title = $SITE_TITLE/" -e "s/ckan_default:pass/ckan_default:$PASSWD/" -e "s/ckan.site_url =/ckan.site_url=http:\/\/$EXTERNAL_DNS/" /etc/ckan/default/development.ini > /etc/ckan/default/production.ini
 
 # Setup Solr (Single Solr instance)
 

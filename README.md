@@ -50,7 +50,7 @@ You have to create your first CKAN sysadmin user from the command line. For exam
 paster sysadmin add seanh -c /etc/ckan/default/production.ini
 ```
 
-http://docs.ckan.org/en/ckan-2.2/getting-started.html#create-admin-user
+http://docs.ckan.org/en/latest/maintaining/getting-started.html
 
 ## 5. Customizing look and feel
 
@@ -58,7 +58,7 @@ Some simple customizations to customize the ‘look and feel’ of your CKAN sit
 
 ![CKAN Config Panel](https://www.evernote.com/shard/s21/sh/b4245a4f-a769-433e-8235-d05ee0156c0d/e731f862589c40101fd6d72f46704f2f/deep/0/Administration---CKAN.png)
 
-http://docs.ckan.org/en/ckan-2.2/sysadmin-guide.html
+http://docs.ckan.org/en/latest/maintaining/getting-started.html
 
 ## 6. Install an Email Server
 
