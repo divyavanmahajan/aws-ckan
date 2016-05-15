@@ -4,6 +4,7 @@
 
 CKAN is a powerful data management system that makes data accessible – by providing tools to streamline publishing, sharing, finding and using data. CKAN is aimed at data publishers (national and regional governments, companies and organizations) wanting to make their data open and available.
 
+This is a fork of the original https://github.com/Launch-with-1-Click/aws-ckan which has not been updated since 2 years. I've updated the setup to deploy into AWS VPCs, CKAN 2.5.2 and Ubuntu 16.04 (Xenial).
 
 ## 2. COMPONENTS
 
@@ -50,9 +51,11 @@ You have to create your first CKAN sysadmin user from the command line. For exam
 paster sysadmin add seanh -c /etc/ckan/default/production.ini
 ```
 
-http://docs.ckan.org/en/latest/maintaining/getting-started.html
+More instructions on getting started with CKAN at the CKAN docs site at http://docs.ckan.org/en/latest/maintaining/getting-started.html
 
 ## 5. Customizing look and feel
+
+To remove the promoted text on the home page, edit the file `/usr/lib/ckan/default/src/ckan/ckan/templates/home/snippets/promoted.html`.
 
 Some simple customizations to customize the ‘look and feel’ of your CKAN site are available via the UI, at `http://<my-ckan-url>/ckan-admin/config/`.
 
@@ -68,12 +71,11 @@ Install an email server to enable CKAN’s email features (such as sending trace
 sudo apt-get install postfix
 ```
 
+
 When asked to choose a Postfix configuration, choose `Internet Site` and press return.
+Alternatively, you can use https://github.com/ckan/ckan-docker/blob/master/_etc/postfix/main.cf to replace `/etc/postfix/main.cf`.
 
 ## 7. More information
 
-[Welcome to CKAN’s Documentation](http://docs.ckan.org/en/ckan-2.2/)
+[Welcome to CKAN’s Documentation](http://docs.ckan.org/)
 
-## 8. Support
-
-info+ckan@digitalcube.jp

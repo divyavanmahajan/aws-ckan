@@ -3,7 +3,7 @@
 set -ex
 
 EXTERNAL_DNS=`curl --connect-timeout 5 http://169.254.169.254/latest/meta-data/public-hostname || echo 192.168.33.10`
-SITE_TITLE='Reporting Hub'
+SITE_TITLE='Reporting Hub '
 CKAN_PKG='python-ckan_2.0_amd64.deb'
 
 apt-get update -y
@@ -63,6 +63,7 @@ chown -R www-data /etc/ckan/
 cd /usr/lib/ckan/default/src/ckan
 paster make-config ckan /etc/ckan/default/development.ini
 sed -e "s/ckan.site_title = /ckan.site_title = $SITE_TITLE/" -e "s/ckan_default:pass/ckan_default:$PASSWD/" -e "s/ckan.site_url =/ckan.site_url=http:\/\/$EXTERNAL_DNS/" /etc/ckan/default/development.ini > /etc/ckan/default/production.ini
+cp /vagrant/files/promoted.html /usr/lib/ckan/default/src/ckan/ckan/templates/home/snippets/promoted.html
 
 # Setup Solr (Single Solr instance)
 
