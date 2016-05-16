@@ -38,6 +38,12 @@ vagrant provision
 ```bash
   sh start.sh
 ```
++ Alternative to running vagrant provision - If Vagrant provision seems to hang
+```bash
+vagrant ssh
+cd /vagrant
+sudo bash bootstrap.sh
+```
  
 
 ## 3. URLs

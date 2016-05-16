@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 set -ex
-
+export DEBIAN_FRONTEND=noninteractive
 EXTERNAL_DNS=`curl --connect-timeout 5 http://169.254.169.254/latest/meta-data/public-hostname || echo 192.168.33.10`
 SITE_TITLE='Reporting Hub '
 CKAN_PKG='python-ckan_2.0_amd64.deb'
@@ -62,7 +62,7 @@ chown -R www-data /etc/ckan/
 
 cd /usr/lib/ckan/default/src/ckan
 paster make-config ckan /etc/ckan/default/development.ini
-sed -e "s/ckan.site_title = /ckan.site_title = $SITE_TITLE/" -e "s/ckan_default:pass/ckan_default:$PASSWD/" -e "s/ckan.site_url =/ckan.site_url=http:\/\/$EXTERNAL_DNS/" /etc/ckan/default/development.ini > /etc/ckan/default/production.ini
+sed -e "s/ckan.site_title = CKAN/ckan.site_title = $SITE_TITLE/" -e "s/ckan_default:pass/ckan_default:$PASSWD/" -e "s/ckan.site_url =/ckan.site_url=http:\/\/$EXTERNAL_DNS/" /etc/ckan/default/development.ini > /etc/ckan/default/production.ini
 cp /vagrant/files/promoted.html /usr/lib/ckan/default/src/ckan/ckan/templates/home/snippets/promoted.html
 
 # Setup Solr (Single Solr instance)
@@ -109,7 +109,7 @@ service apache2 restart
 service nginx restart
 
 echo postfix postfix/main_mailer_type select 'Internet Site' | debconf-set-selections
-echo postfix postfix/mail_name string $HOSTNAME | debconf-set-selections
+echo postfix postfix/mail_name string $EXTERNAL_DNS | debconf-set-selections
 apt-get -y install postfix
 
 #sudo install -o root -g root -m 0600 /vagrant/files/ckan.cron /etc/cron.d/ckan
