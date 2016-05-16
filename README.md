@@ -6,7 +6,7 @@ CKAN is a powerful data management system that makes data accessible – by prov
 
 This is a fork of the original https://github.com/Launch-with-1-Click/aws-ckan which has not been updated since 2 years. I've updated the setup to deploy into AWS VPCs, CKAN 2.5.2 and Ubuntu 16.04 (Xenial).
 
-## 2. COMPONENTS
+## 2. COMPONENTS AND INSTALLATION STEPS
 
 * Ubuntu 16.04
 * Apache (latest)
@@ -15,6 +15,30 @@ This is a fork of the original https://github.com/Launch-with-1-Click/aws-ckan w
 * CKAN 2.5.2
 * Jetty 8
 * OpenJDK 8
+
+
+## 2.1 Installation
+
++ Clone this repository
+```bash
+git clone https://github.com/divyavanmahajan/aws-ckan.git
+```
++ Edit the file start.sh (or start.bat in Windows) to set your environment variables. 
+```
+#!/bin/sh
+export AWS_ACCESS_KEY=AKXXXXX55GP7WORDQ
+export AWS_SECRET_ACCESS_KEY=l5XXXXXXXXXXXXXXXXXXRTvPWMHIwkp
+export AWS_EC2_KEYPAIR=my-aws-keypair
+export AWS_EC2_KEYPAIR_PATH=~/.ssh/my-aws-keypair.pem
+export AWS_SUBNET=subnet-6xxxx852
+vagrant up --provider aws
+vagrant provision
+```
++ Run start.sh (or start.bat in Windows)
+```bash
+  sh start.sh
+```
+ 
 
 ## 3. URLs
 
@@ -35,7 +59,7 @@ You have to use CKAN’s command line interface to create your first sysadmin us
 SSH into the instance with the user ‘ubuntu’. 
 
 ```
-ssh -i /path/to/my-key-pair.pem ubuntu@${public_hostname}
+vagrant ssh
 ```
 
 CKAN commands are executed using the paster command on the server that CKAN is installed on. Before running the paster commands below, you need to make sure that your virtualenv is activated and that you're in your ckan source directory.
