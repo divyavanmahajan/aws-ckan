@@ -34,7 +34,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	'Name' => 'CKAN-xlarge'
     }
 
-    aws.instance_type = "m3.medium"
+    aws.instance_type = "m4.xlarge"
 
     #aws.block_device_mapping = [{ 'DeviceName' => '/dev/sda1', 'Ebs.VolumeSize' => 50 }]
     aws.user_data = File.read("aws_cloudinit.sh")

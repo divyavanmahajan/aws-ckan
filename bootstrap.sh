@@ -21,10 +21,10 @@ locale-gen en_US.UTF-8
 dpkg-reconfigure -f noninteractive locales
 
 # Install postfix
-debconf-set-selections <<< "postfix postfix/main_mailer_type select 'Internet Site'"
-debconf-set-selections <<< "postfix postfix/mail_name string $EXTERNAL_DNS"
-debconf-set-selections <<< "postfix postfix/mailname string $EXTERNAL_DNS"
-apt-get -y install postfix
+#debconf-set-selections <<< "postfix postfix/main_mailer_type select 'Internet Site'"
+#debconf-set-selections <<< "postfix postfix/mail_name string $EXTERNAL_DNS"
+#debconf-set-selections <<< "postfix postfix/mailname string $EXTERNAL_DNS"
+#apt-get -y install postfix
 
 
 # Installing CKAN from Source
@@ -117,5 +117,3 @@ service nginx restart
 #sudo install -o root -g root -m 0600 /vagrant/files/ckan.cron /etc/cron.d/ckan
 #sudo install -o root -g root -m 0700 /vagrant/files/reset_ckan_pass.sh /usr/local/bin/
 
-logout
-exit
