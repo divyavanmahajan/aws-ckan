@@ -20,6 +20,12 @@ export LC_ALL=en_US.UTF-8
 locale-gen en_US.UTF-8
 dpkg-reconfigure -f noninteractive locales
 
+# Install postfix
+debconf-set-selections <<< "postfix postfix/main_mailer_type select 'Internet Site'"
+debconf-set-selections <<< "postfix postfix/mail_name string $EXTERNAL_DNS"
+debconf-set-selections <<< "postfix postfix/mailname string $EXTERNAL_DNS"
+apt-get -y install postfix
+
 
 # Installing CKAN from Source
 # http://docs.ckan.org/en/ckan-2.2/install-from-source.html
@@ -108,10 +114,8 @@ a2ensite ckan_default
 service apache2 restart
 service nginx restart
 
-echo postfix postfix/main_mailer_type select 'Internet Site' | debconf-set-selections
-echo postfix postfix/mail_name string $EXTERNAL_DNS | debconf-set-selections
-apt-get -y install postfix
-
 #sudo install -o root -g root -m 0600 /vagrant/files/ckan.cron /etc/cron.d/ckan
 #sudo install -o root -g root -m 0700 /vagrant/files/reset_ckan_pass.sh /usr/local/bin/
 
+logout
+exit
