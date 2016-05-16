@@ -21,10 +21,10 @@ locale-gen en_US.UTF-8
 dpkg-reconfigure -f noninteractive locales
 
 # Install postfix
-#debconf-set-selections <<< "postfix postfix/main_mailer_type select 'Internet Site'"
-#debconf-set-selections <<< "postfix postfix/mail_name string $EXTERNAL_DNS"
-#debconf-set-selections <<< "postfix postfix/mailname string $EXTERNAL_DNS"
-#apt-get -y install postfix
+debconf-set-selections <<< "postfix postfix/main_mailer_type select 'Internet Site'"
+debconf-set-selections <<< "postfix postfix/mail_name string $EXTERNAL_DNS"
+debconf-set-selections <<< "postfix postfix/mailname string $EXTERNAL_DNS"
+apt-get -y install postfix
 
 
 # Installing CKAN from Source
@@ -55,6 +55,7 @@ deactivate
 
 # Setup a PostgreSQL database
 
+service postgresql restart
 sudo -u postgres createuser -S -D -R ckan_default
 sudo -u postgres createdb -O ckan_default ckan_default -E utf-8
 echo "ALTER USER ckan_default WITH PASSWORD '$PASSWD';" | sudo -u postgres psql
@@ -83,7 +84,9 @@ if [ ! -L /etc/solr/conf/schema.xml ]; then
     ln -s /usr/lib/ckan/default/src/ckan/ckan/config/solr/schema.xml /etc/solr/conf/schema.xml
 fi
 
-sudo service jetty8 restart
+service postgresql restart
+service jetty8 restart
+
 
 # Create database tables
 
