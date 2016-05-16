@@ -108,10 +108,10 @@ a2ensite ckan_default
 service apache2 restart
 service nginx restart
 
-# echo postfix postfix/main_mailer_type select 'Internet Site' | debconf-set-selections
-# echo postfix postfix/mail_name string $HOSTNAME | debconf-set-selections
-# apt-get -y install postfix
+echo postfix postfix/main_mailer_type select 'Internet Site' | debconf-set-selections
+echo postfix postfix/mail_name string $HOSTNAME | debconf-set-selections
+apt-get -y install postfix
 
-sudo install -o root -g root -m 0600 /vagrant/files/ckan.cron /etc/cron.d/ckan
-sudo install -o root -g root -m 0700 /vagrant/files/reset_ckan_pass.sh /usr/local/bin/
+#sudo install -o root -g root -m 0600 /vagrant/files/ckan.cron /etc/cron.d/ckan
+#sudo install -o root -g root -m 0700 /vagrant/files/reset_ckan_pass.sh /usr/local/bin/
 
